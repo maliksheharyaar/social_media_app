@@ -20,12 +20,12 @@ const App = () => {
     return(
         <Container maxWidth="lg">
             <AppBar className={classes.appBar} position='static' color='inherit'>
-                <Typography className={classes.heading} variant='h2' align='center'>Social Blog</Typography>
-                <img className={classes.image} src={social_blog} alt='memories' height="60"/>
+                <Typography className={classes.heading} variant='h3' align='center'>#</Typography>
+                <img className={classes.image} src={social_blog} alt='social blog' height="50"/>
             </AppBar>
             <Grow in>
                 <Container>
-                    <Grid container justifyContent='space-between' alignItems='stretch' spacing={3}>
+                    <Grid className={classes.mainContainer} container justifyContent='space-between' alignItems='stretch' spacing={3}>
                         <Grid item xs={12} sm={7}>
                             <Posts setCurrentId={setCurrentId}/>
                         </Grid>
