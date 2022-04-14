@@ -70,7 +70,7 @@ const Auth = () => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography variant='h5'>{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
+        <Typography className={classes.title} variant='h5'>{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             { isSignup && (
@@ -90,8 +90,8 @@ const Auth = () => {
           <GoogleLogin
             clientId='654484942473-6fn1j7gsmqr2gsr635uhfsiavjblbnlo.apps.googleusercontent.com'
             render={(renderProps) => (
-              <Button className={classes.googleButton} color='primary' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant='contained'>
-                Google Sign In
+              <Button className={classes.googleButton} color='primary' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
+                Sign in with Google
               </Button>
             )}
 
@@ -102,7 +102,7 @@ const Auth = () => {
 
           <Grid container justifyContent='flex-end'>
             <Grid item>
-              <Button onClick={switchMode}>
+              <Button className={classes.switchText} onClick={switchMode}>
                 { isSignup ? "Already have an accounts? Sign In" : "Don't have an account? Sign Up"}
               </Button>
             </Grid>

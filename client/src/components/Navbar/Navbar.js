@@ -3,7 +3,8 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Button, Toolbar, Typography} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-import social_blog from '../../images/social_blog.png'; 
+import social_blog from '../../images/social_blog.png';
+import logo from '../../images/coffee_logo.png';  
 import useStyles from './styles';
 
 
@@ -38,10 +39,10 @@ const Navbar = () => {
 
     return (
         <AppBar className={classes.appBar} position='static' color='inherit'>
-            <div className={classes.brandContainer}>
-                <Typography component={Link} to="/" className={classes.heading} variant='h3' align='center'>#</Typography>
-                <img className={classes.image} src={social_blog} alt='social blog' height="50" />
-            </div>
+            <Link to="/" className={classes.brandContainer}>
+                <img src={social_blog} alt='social blog' height="50" />
+                <img className={classes.imageLogo} src={logo} alt="icon" height="65px"/>
+            </Link>
         <Toolbar className={classes.toolbar}>
             {user ? (
                 <div className={classes.profile}>

@@ -5,10 +5,18 @@ import express from 'express';
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
-    try {
-        const postMessages = await PostMessage.find();
 
-        res.status(200).json(postMessages);
+    const { page } = req.query;
+
+    try {
+
+        const LIMIT = 6; //Pagination page limit
+        const startIndex = (Number(page) - 1) * LIMIT; //Get starting index of every page
+        const total = await PostMessage.countDocuments({});
+
+        const posts = await PostMessage.find().sort({_id: -1 }).limit(LIMIT).skip(startIndex);
+
+        res.status(200).json( { data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)} );
 
     } catch (error) {
 
@@ -17,21 +25,26 @@ export const getPosts = async (req, res) => {
     }
 }
 
+// QUERY -> /posts?page=1 -> page = 1
+//PARAMS -> /posts/123 -> id = 123
 
-// export const getPost = async (req, res) => {
-//     const { id } = req.params;
+export const getPostsBySearch = async (req, res) => {
+    const { searchQuery, tags } = req.query;
 
-//     try {
-//         const post = await PostMessage.findById(id);
+    try {
+        const title = new RegExp(searchQuery, 'i');
 
-//         res.status(200).json(post);
+        const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
 
-//     } catch (error) {
+        res.json({ data: posts });
 
-//         res.status(404).json({message: error.message});
+
+    } catch (error) {
+
+        res.status(404).json({message: error.message});
         
-//     }
-// }
+    }
+}
 
 export const createPost = async (req, res) => {
     const post = req.body;
