@@ -12,3 +12,6 @@ export const LOGOUT = 'LOGOUT';
 //Loading constants
 export const START_LOADING = 'START_LOADING';
 export const END_LOADING = 'END_LOADING';
+
+//Detailed Post
+export const FETCH_POST = 'FETCH_POST';

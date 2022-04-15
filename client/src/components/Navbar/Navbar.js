@@ -3,7 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Button, Toolbar, Typography} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-import social_blog from '../../images/social_blog.png';
+import social_blog from '../../images/Social_Blog.png';
 import logo from '../../images/coffee_logo.png';  
 import useStyles from './styles';
 
@@ -38,20 +38,20 @@ const Navbar = () => {
 
 
     return (
-        <AppBar className={classes.appBar} position='static' color='inherit'>
+        <AppBar className={classes.appBar} position='static' color='inherit' elevation={1}>
             <Link to="/" className={classes.brandContainer}>
-                <img src={social_blog} alt='social blog' height="50" />
-                <img className={classes.imageLogo} src={logo} alt="icon" height="65px"/>
+                <img src={social_blog} alt='social blog' height="30" />
+                <img className={classes.imageLogo} src={logo} alt="icon" height="35px"/>
             </Link>
         <Toolbar className={classes.toolbar}>
             {user ? (
                 <div className={classes.profile}>
                     <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>{user.result.name.charAt(0)}</Avatar>
-                    <Typography className={classes.userName} variant="h6">{user.result.name}</Typography>
-                    <Button variant='contained' className={classes.logout} color='secondary' onClick={logout}>Logout</Button>
+                    <Typography className={classes.userName} variant="subtitle1">{user.result.name}</Typography>
+                    <Button variant='contained' className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
                 </div>
             ) : (
-                <Button component={Link} to="/auth" variant='contained' color='primary'>Sign In</Button>
+                <Button className={classes.signin} component={Link} to="/auth" variant='contained' color='secondary'>Sign In</Button>
             )}
         </Toolbar>
         </AppBar>

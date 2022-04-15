@@ -25,6 +25,23 @@ export const getPosts = async (req, res) => {
     }
 }
 
+export const getPost = async (req, res) => {
+
+    const { id } = req.params;
+
+    try {
+
+        const post = await PostMessage.findById(id);
+
+        res.status(200).json(post);
+
+    } catch (error) {
+
+        res.status(404).json({message: error.message});
+        
+    }
+}
+
 // QUERY -> /posts?page=1 -> page = 1
 //PARAMS -> /posts/123 -> id = 123
 

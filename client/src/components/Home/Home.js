@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getPosts, getPostsBySearch } from '../../actions/posts';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
 import Pagination from '../Pagination';
-import { useHistory, useLocation} from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -13,7 +13,7 @@ import Form from '../Form/Form';
 
 import useStyles from './styles';
 
-function useQuery(){
+function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
@@ -30,17 +30,17 @@ const Home = () => {
     const [tags, setTags] = useState([]);
 
     const searchPost = () => {
-        if(search.trim() || tags){
+        if (search.trim() || tags) {
             // dispatch -> fetch search post
-            dispatch(getPostsBySearch({search, tags: tags.join(',')}));
+            dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
             history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
-        }else{
+        } else {
             history.push('/');
         }
     }
 
     const handleKeyDown = (e) => {
-        if(e.keyCode === 13){
+        if (e.keyCode === 13) {
             searchPost();
         }
     }
@@ -50,9 +50,9 @@ const Home = () => {
     const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
     return (
         <Grow in>
+            <Container className={classes.searchContainer} maxWidth="xl" >
+                <Grid container justifyContent='space-between' alignItems='stretch' spacing={3} className={classes.gridContainer}>
 
-            <Grid container justifyContent='space-between' alignItems='stretch' spacing={3} className={classes.gridContainer}>
-                <Container className={classes.searchContainer} maxWidth="xl">
                     <AppBar className={classes.appBarSearch} position="static" color="inherit">
                         <TextField
                             name="search"
@@ -77,24 +77,25 @@ const Home = () => {
 
                         <Button onClick={searchPost} className={classes.searchButton} ><SearchIcon /></Button>
                     </AppBar>
-                </Container>
 
-                <Grid className={classes.postsContainer} item xs={12} sm={6} md={9}>
-                    <Posts setCurrentId={setCurrentId} />
+
+                    <Grid className={classes.postsContainer} item xs={12} sm={6} md={9}>
+                        <Posts setCurrentId={setCurrentId} />
+                    </Grid>
+
+                    <Grid item xs={12} sm={6} md={3}>
+
+                        <Form currentId={currentId} setCurrentId={setCurrentId} />
+                        {(!searchQuery && !tags.length) && (
+                            <Paper elevation={1} className={classes.pagination}>
+                                <Pagination page={page} />
+                            </Paper>
+                        )}
+
+                    </Grid>
+
                 </Grid>
-
-                <Grid item xs={12} sm={6} md={3}>
-
-                    <Form currentId={currentId} setCurrentId={setCurrentId} />
-                    {(!searchQuery && !tags.length) && (
-                        <Paper elevation={6} className={classes.pagination}>
-                            <Pagination page={page} />
-                        </Paper>
-                    )}
-
-                </Grid>
-            </Grid>
-
+            </Container>
         </Grow>
     )
 }
