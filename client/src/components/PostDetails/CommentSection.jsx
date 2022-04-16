@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Typography, TextField, Button } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 
-//import { commentPost } from '../../actions/posts';
+import { commentPost } from '../../actions/posts';
 import useStyles from './styles';
 
 const CommentSection = ({ post }) => {
@@ -14,12 +14,13 @@ const CommentSection = ({ post }) => {
   const commentsRef = useRef();
 
   const handleComment = async () => {
-    //const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
+    const newComments = await dispatch(commentPost(`${user?.result?.name}: ${comment}`, post._id));
 
     setComment('');
-    //setComments(newComments);
+    setComments(newComments);
+    
 
-    //commentsRef.current.scrollIntoView({ behavior: 'smooth' });
+    commentsRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -27,10 +28,10 @@ const CommentSection = ({ post }) => {
       <div className={classes.commentsOuterContainer}>
         <div className={classes.commentsInnerContainer}>
           <Typography gutterBottom variant="h6">Comments</Typography>
-          {comments?.map((commentItem, index) => (
-            <Typography key={index} gutterBottom variant="subtitle1">
-              <strong>{commentItem.split(': ')[0]}</strong>
-              {commentItem.split(':')[1]}
+          {comments?.map((c, i) => (
+            <Typography key={i} gutterBottom variant="subtitle1">
+              <strong>{c.split(': ')[0]}</strong>
+              {c.split(':')[1]}
             </Typography>
           ))}
           <div ref={commentsRef} />
@@ -39,7 +40,7 @@ const CommentSection = ({ post }) => {
           <Typography gutterBottom variant="h6">Write a comment</Typography>
           <TextField fullWidth rows={4} variant="outlined" label="Comment" multiline value={comment} onChange={(e) => setComment(e.target.value)} />
           <br />
-          <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment.length} color="primary" variant="contained" onClick={handleComment}>
+          <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment.length} color="secondary" variant="contained" onClick={handleComment}>
             Comment
           </Button>
         </div>

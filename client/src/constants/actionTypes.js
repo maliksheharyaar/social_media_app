@@ -15,3 +15,4 @@ export const END_LOADING = 'END_LOADING';
 
 //Detailed Post
 export const FETCH_POST = 'FETCH_POST';
+export const COMMENT = 'COMMENT';

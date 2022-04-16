@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import Icon from './icon';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
+import dotenv from 'dotenv';
 import Input from './Input';
 import { signin, signup } from '../../actions/auth';
 
@@ -16,11 +17,13 @@ const initalState = {
   password: '',
   confirmPassword: ''
 };
+dotenv.config();
 
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignUp] = useState(false);
+  const [isDemoLogin, setIsDemoLogin] = useState(false);
   const [formData, setFormData] = useState(initalState);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -29,12 +32,22 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if(isSignup){
-      dispatch(signup(formData, history));
-    }else{
-      dispatch(signin(formData, history));
+    if (isDemoLogin) {
+      dispatch(signin({
+        firstName: 'Demo',
+        lastName: 'Account',
+        email: 'demo@gmail.com',
+        password: '123456',
+        confirmPassword: '123456'
+      }, history));
+    } else {
+      if (isSignup) {
+        dispatch(signup(formData, history));
+      } else {
+        dispatch(signin(formData, history));
+      }
     }
+
   };
 
   const handleChange = (e) => {
@@ -71,7 +84,7 @@ const Auth = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography className={classes.title} variant='h5'>{isSignup ? 'Sign Up' : 'Sign In'}</Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form className={classes.form} noValidate={isDemoLogin} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             { isSignup && (
                 <>
@@ -88,10 +101,11 @@ const Auth = () => {
             {isSignup ? 'Sign Up' : 'Sign In'}
           </Button>
           <GoogleLogin
-            clientId='654484942473-6fn1j7gsmqr2gsr635uhfsiavjblbnlo.apps.googleusercontent.com'
+            clientId={process.env.REACT_APP_GOOGLE_ID}
             render={(renderProps) => (
               <Button className={classes.googleButton} color='primary' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
                 Sign in with Google
+                {process.env.REACT_APP_GOOGLE_ID}
               </Button>
             )}
 
@@ -99,7 +113,9 @@ const Auth = () => {
             onFailure={googleFailure}
             cookiePolicy='single_host_origin'
           />
-
+          <Button type='submit' fullWidth variant='outlined' color='secondary' className={classes.demoSubmit} onClick={() => setIsDemoLogin(true)}>
+            Demo Login
+          </Button>
           <Grid container justifyContent='flex-end'>
             <Grid item>
               <Button className={classes.switchText} onClick={switchMode}>

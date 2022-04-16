@@ -31,6 +31,9 @@ export default makeStyles((theme) => ({
     borderColor: "black",
     padding: "6px 16px",
   },
+  demoSubmit: {
+    margin: theme.spacing(2, 0, 2),
+  },
   googleButton: {
     marginBottom: theme.spacing(2),
     backgroundColor: "#fff",
