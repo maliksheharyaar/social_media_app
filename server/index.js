@@ -17,11 +17,14 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use('/user', userRoutes);
 
+app.get('/', (req, res) => {
+    res.send('APP IS RUNNING');
+});
 
 const PORT = process.env.PORT;
 
 mongoose.connect(process.env.CONNECTION_URL) 
-    .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)) )
+    .then(() => app.listen(PORT || 5000, () => console.log(`Server running on port ${PORT}`)) )
     .catch((error) => console.log(error.message));
 
 
