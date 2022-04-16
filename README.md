@@ -8,7 +8,7 @@ Features include
 - Pagination
 - Mobile Responsive
 
-## Demo https://whichcoffeedev.com
+## Demo https://whichcoffeedev.com/posts
 
 ## Signup/Signin
 
