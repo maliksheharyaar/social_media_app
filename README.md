@@ -1,3 +1,11 @@
-##Fullstack Social Blog application (MERN)
+# Fullstack Social Blog App (MERN)
 
-#Live Demo https://whichcoffeedev.com/
+This project is a simple blog type application made with MongoDB, Express, React, NodeJS (MERN).
+Features include
+- Custom Signup/Sigin
+- Post search by name or tags
+- Google login
+- Pagination
+- Mobile Responsive
+
+## Demo https://whichcoffeedev.com
