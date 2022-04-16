@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../actions/posts';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
 import Pagination from '../Pagination';
 import { useHistory, useLocation } from 'react-router-dom';
