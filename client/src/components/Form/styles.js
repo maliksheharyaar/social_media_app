@@ -28,6 +28,14 @@ export default makeStyles((theme) => ({
     height: 48,
     padding: '0 30px',
   },
+  buttonSubmitDisabled: {
+    marginBottom: 10,
+    borderColor: "black",
+    borderRadius: 5,
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
   buttonClear: {
     marginBottom: 10,
     border: "1px solid",
